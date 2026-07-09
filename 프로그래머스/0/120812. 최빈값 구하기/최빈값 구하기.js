@@ -1,19 +1,18 @@
 function solution(array) {
     let all = {};
-    let count = 0;
+    let max = 0;
+    let check;
+    let isP = false;
     for (let num of array){
-        if (all[num]) all[num]++;
-        else all[num] = 1;
-    }
-    
-    let max = Math.max(...Object.values(all));
-    let max_key;
-    for (let key in all){
-        if (all[key] == max) {
-            max_key = key;
-            count++;
+        all[num] ? all[num]++ : all[num] = 1;
+        if (all[num] > max){
+            max = all[num]
+            check = num;
+            isP = false;
+        } else if (all[num] == max && num != check){
+            isP = true;
         }
     }
     
-    return count > 1 ? -1 : +max_key;
+    return isP ? -1 : check;
 }
